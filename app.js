@@ -277,6 +277,7 @@ film.volume = quietPreview ? 0 : .9;
 film.controls = false;
 let windowFill = false;
 let nativeVideoFullscreen = false;
+let fullscreenAttempt = 0;
 
 function clock(seconds) {
  const value = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
@@ -319,6 +320,7 @@ function toggleSound() {
  syncControls();
 }
 async function leaveFullscreen() {
+ fullscreenAttempt = 0;
  if (windowFill) {
   windowFill = false; card.classList.remove('is-expanded'); body.classList.remove('expanded-player');
  }
@@ -329,6 +331,7 @@ async function leaveFullscreen() {
 }
 async function toggleFullscreen() {
  if (isFullscreen()) { await leaveFullscreen(); return; }
+ fullscreenAttempt = performance.now();
  // Fullscreen APIs differ: iPhone provides a native video-only player.
  try {
   if (card.requestFullscreen && document.fullscreenEnabled) {
@@ -371,13 +374,21 @@ captionsButton.addEventListener('click', () => {
  syncControls();
 });
 for (const event of ['play', 'pause', 'ended', 'timeupdate', 'durationchange', 'loadedmetadata', 'volumechange', 'seeked']) film.addEventListener(event, syncControls);
-for (const event of ['fullscreenchange', 'webkitfullscreenchange']) document.addEventListener(event, syncControls);
+for (const event of ['fullscreenchange', 'webkitfullscreenchange']) document.addEventListener(event, () => {
+ // A host app can cancel fullscreen immediately after granting the request.
+ // Preserve the user's intent with window-fill; explicit exits clear the attempt.
+ if (!(document.fullscreenElement || document.webkitFullscreenElement) && !nativeVideoFullscreen && !windowFill && fullscreenAttempt && performance.now() - fullscreenAttempt < 1200 && state === 'watching') {
+  windowFill = true; card.classList.add('is-expanded'); body.classList.add('expanded-player');
+ }
+ syncControls();
+});
 film.addEventListener('webkitbeginfullscreen', () => { nativeVideoFullscreen = true; syncControls(); });
 film.addEventListener('webkitendfullscreen', () => { nativeVideoFullscreen = false; syncControls(); });
 film.addEventListener('click', () => { if (state === 'watching') togglePlay(); });
 film.addEventListener('dblclick', () => { if (state === 'watching') toggleFullscreen(); });
 document.addEventListener('keydown', (event) => {
  if (state !== 'watching' || event.ctrlKey || event.metaKey || event.altKey) return;
+ if (event.key === 'Escape') fullscreenAttempt = 0;
  if (event.key === 'Escape' && windowFill) { event.preventDefault(); leaveFullscreen(); return; }
  if (event.target.closest('button, a, input, textarea, select')) return;
  const key = event.key.toLowerCase();

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173d3c">
+<meta name="description" content="Один маленький подарунок для Марусі. Від брата, з любов’ю.">
+<title>Марусю, це тобі.</title>
+<link rel="icon" href="assets/heart.svg" type="image/svg+xml">
+<link rel="preload" href="assets/Caveat.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script src="app.js" defer></script>
+</head>
+<body data-state="closed">
+<div class="atmosphere" aria-hidden="true"><div class="window-light"></div><div class="grain"></div><span class="spark spark-one">✧</span><span class="spark spark-two">✦</span><span class="spark spark-three">✧</span></div>
+<main>
+ <section class="gift-scene" aria-labelledby="greeting">
+  <header class="intro"><p class="from">Маленький подарунок від брата</p><h1 id="greeting">Марусю, це тобі.</h1><p class="intro-note">Тут дещо дуже твоє.</p></header>
+  <div class="gift-stage" id="gift-stage">
+   <div class="envelope" id="envelope">
+    <div class="envelope-shadow" aria-hidden="true"></div>
+    <div class="envelope-back paper" aria-hidden="true"><div class="inside-lining"></div></div>
+    <div class="card-home" id="card-home">
+     <div class="postcard" id="postcard">
+      <video id="film" controls playsinline preload="metadata" poster="assets/poster.jpg" tabindex="-1" aria-label="Майстерня характерів — мультфільм для Марусі">
+       <source src="assets/marusia.mp4" type="video/mp4">
+       <track src="assets/subtitles-uk.vtt" kind="subtitles" srclang="uk" label="Українські">
+      </video>
+      <div class="media-overlay" id="media-overlay" hidden>
+       <p id="media-message" role="status" aria-live="polite"></p>
+       <button class="film-play" id="film-play" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg><span>Дивитися зі звуком</span></button>
+      </div>
+      <div class="player-controls" id="player-controls" role="group" aria-label="Керування мультфільмом" hidden>
+       <button id="toggle-play" class="player-button" type="button" aria-label="Відтворити" title="Відтворити / пауза (пробіл)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="play-icon" d="m8 5 11 7-11 7Z"/><path class="pause-icon" d="M8 5v14M16 5v14"/></svg></button>
+       <div class="timeline"><input id="seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Позиція у відео"><span id="video-time">0:00 / 1:48</span></div>
+       <button id="toggle-sound" class="player-button" type="button" aria-label="Вимкнути звук" title="Звук (M)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 5 9H2v6h3l6 5Z"/><path class="sound-on" d="M15 8q5 4 0 8m3-11q8 7 0 14"/><path class="sound-off" d="m16 9 6 6m0-6-6 6"/></svg></button>
+       <input id="volume" class="volume" type="range" min="0" max="1" step="0.05" value="0.9" aria-label="Гучність">
+       <button id="toggle-captions" class="player-button captions-button" type="button" aria-label="Увімкнути українські субтитри" aria-pressed="false" title="Українські субтитри">CC</button>
+       <button id="toggle-fullscreen" class="player-button" type="button" aria-label="На весь екран" title="На весь екран (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="expand-icon" d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><path class="collapse-icon" d="M3 8h5V3m8 0v5h5M8 21v-5H3m18 0h-5v5"/></svg></button>
+      </div>
+     </div>
+    </div>
+    <div class="pocket" aria-hidden="true">
+     <svg class="pocket-art" viewBox="0 0 640 410" preserveAspectRatio="none">
+      <defs><linearGradient id="left-fold" x2="1" y2=".5"><stop stop-color="#e8cfa5"/><stop offset="1" stop-color="#c9a779"/></linearGradient><linearGradient id="right-fold" x2="0" y2="1"><stop stop-color="#f4e1bc"/><stop offset="1" stop-color="#ddbe90"/></linearGradient><linearGradient id="bottom-fold" x1=".3" y1="0" x2=".6" y2="1"><stop stop-color="#f4e2bf"/><stop offset="1" stop-color="#e6cba2"/></linearGradient></defs>
+      <path d="M0 0 334 229 0 410Z" fill="url(#left-fold)"/>
+      <path d="m640 0-334 229 334 181Z" fill="url(#right-fold)"/>
+      <path d="M0 410 294 201Q320 185 346 201L640 410Z" fill="#a17e53" opacity=".17"/>
+      <path d="M0 410 294 208Q320 190 346 208L640 410Z" fill="url(#bottom-fold)"/>
+      <path d="M1 409 294 208Q320 190 346 208L639 409" fill="none" stroke="#fff0d1" stroke-opacity=".6" stroke-width="1.4"/>
+      <path d="m1 1 288 200M639 1 351 200" stroke="#ad8b63" stroke-opacity=".2" stroke-width="1.2"/>
+     </svg>
+     <div class="address"><span>Марусі</span><small>від твого брата</small></div>
+     <svg class="postage" viewBox="0 0 100 112"><path d="M7 3h86v106H7Z" fill="none" stroke="#b39970" stroke-width="2" stroke-dasharray="3 4"/><path d="M14 10h72v92H14Z" fill="none" stroke="#b39970" stroke-width="1"/><g fill="none" stroke="#aa8961" stroke-width="1.8" stroke-linejoin="round"><path d="m28 47-3-23 21 15M54 39l21-15-3 23M27 45q-7 19 23 31 30-12 23-31-23 11-46 0Z"/><path d="m27 48 22 14 24-14M45 59h10l-5 6ZM38 53v3m24-3v3"/><path d="M25 83q25 9 50 0"/></g><text x="50" y="95" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="#a38863">для тебе</text></svg>
+    </div>
+    <div class="flap" id="flap" aria-hidden="true"><div class="flap-face flap-front"></div><div class="flap-face flap-inside"><span>з любов’ю</span></div></div>
+    <button class="seal" id="open-gift" type="button" aria-label="Відкрити подарунок для Марусі">
+     <svg viewBox="0 0 120 120" aria-hidden="true"><defs><radialGradient id="wax" cx=".38" cy=".27" r=".8"><stop stop-color="#d99986"/><stop offset=".5" stop-color="#bb7368"/><stop offset="1" stop-color="#914c50"/></radialGradient><filter id="wax-shadow" x="-.5" y="-.5" width="2" height="2"><feDropShadow dx="1" dy="4" stdDeviation="3" flood-color="#5b3039" flood-opacity=".32"/></filter></defs><path d="M60 7Q70 3 78 12 91 9 96 23 111 28 108 42 119 52 111 65 114 80 100 87 97 102 82 103 71 116 58 109 43 116 34 104 18 103 17 87 3 79 9 64 1 50 12 39 9 24 25 20 31 5 46 11 52 5 60 7Z" fill="url(#wax)" filter="url(#wax-shadow)"/><circle cx="60" cy="59" r="37" fill="none" stroke="#f0baa0" stroke-opacity=".35" stroke-width="2"/><circle cx="60" cy="61" r="34" fill="none" stroke="#874b4c" stroke-opacity=".4" stroke-width="1.5"/><path d="M60 47C43 29 27 52 44 68L60 82 76 68C93 52 77 29 60 47Z" fill="none" stroke="#f2c6aa" stroke-width="2.8" stroke-linecap="round"/><path d="M42 46q5-5 10-1" fill="none" stroke="#ffe0b8" stroke-opacity=".65" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+   </div>
+  </div>
+  <div class="opening-hint" id="opening-hint"><span class="hint-line" aria-hidden="true"></span><p>Торкнись сердечка</p></div>
+  <p class="quiet-note">Обережно: всередині трохи характеру.</p>
+ </section>
+ <section class="theater" id="theater" aria-labelledby="film-heading" aria-hidden="true" inert>
+  <header class="theater-heading"><h2 id="film-heading" tabindex="-1">З днем народження, Марусю.</h2><p>Люблю тебе. Твій брат.</p></header>
+  <div class="screen-slot" id="screen-slot"></div>
+  <nav class="theater-actions" aria-label="Дії з подарунком">
+   <button class="text-button" id="replay" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2 6M4 4v7h7"/></svg>Ще раз</button>
+   <span class="action-dot" aria-hidden="true"></span>
+   <button class="text-button" id="close-gift" type="button">Скласти в конверт</button>
+   <a class="save-film" href="assets/marusia.mp4" download="Марусі — від брата.mp4" aria-label="Зберегти мультфільм"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5"/></svg><span>Зберегти собі</span></a>
+  </nav>
+  <p class="ending-note" id="ending-note" hidden>І ще раз: я завжди поруч.</p>
+ </section>
+</main>
+<noscript><div class="no-script">Марусю, цей подарунок для тебе. <a href="assets/marusia.mp4">Відкрити мультфільм</a></div></noscript>
+</body>
+</html>

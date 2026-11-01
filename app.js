@@ -321,7 +321,8 @@ function toggleSound() {
 async function leaveFullscreen() {
  if (windowFill) {
   windowFill = false; card.classList.remove('is-expanded'); body.classList.remove('expanded-player');
- } else if (nativeVideoFullscreen && film.webkitExitFullscreen) film.webkitExitFullscreen();
+ }
+ if (nativeVideoFullscreen && film.webkitExitFullscreen) film.webkitExitFullscreen();
  else if (document.fullscreenElement && document.exitFullscreen) await document.exitFullscreen().catch(() => {});
  else if (document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
  syncControls();
@@ -331,7 +332,17 @@ async function toggleFullscreen() {
  // Fullscreen APIs differ: iPhone provides a native video-only player.
  try {
   if (card.requestFullscreen && document.fullscreenEnabled) {
-   await card.requestFullscreen(); syncControls(); return;
+   let timeout;
+   try {
+    await Promise.race([
+     card.requestFullscreen(),
+     new Promise(resolve => { timeout = setTimeout(resolve, 900); })
+    ]);
+   } finally { clearTimeout(timeout); }
+   if (document.fullscreenElement) { syncControls(); return; }
+   // Some in-app browsers advertise fullscreen but never enter it.
+   if (state === 'watching') { windowFill = true; card.classList.add('is-expanded'); body.classList.add('expanded-player'); syncControls(); }
+   return;
   }
   if (card.webkitRequestFullscreen && document.webkitFullscreenEnabled) {
    card.webkitRequestFullscreen(); return;
